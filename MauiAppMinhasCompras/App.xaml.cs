@@ -18,7 +18,7 @@ namespace MauiAppMinhasCompras
                           Environment.SpecialFolder.LocalApplicationData),
                         "banco_sqlite_cpmpras.db3");
                      
-                    _db = new SQLiteDatabaseHelper(".... db3");
+                    _db = new SQLiteDatabaseHelper(path);
                 }
 
                 return _db;

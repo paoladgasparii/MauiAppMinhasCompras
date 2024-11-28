@@ -9,7 +9,7 @@ public partial class NovoProduto : ContentPage
 		InitializeComponent();
 	}
 
-    private void ToolbarItem_Clicked(object sender, EventArgs e)
+    private async void ToolbarItem_Clicked(object sender, EventArgs e)
     {
 		try
 		{
@@ -17,15 +17,17 @@ public partial class NovoProduto : ContentPage
 			{
 				Descricao = txt_descricao.Text,
 				Quantidade = Convert.ToDouble(txt_quantidade.Text),
-				Preco = Convert.ToDouble(txt_quantidade.Text)
+				Preco = Convert.ToDouble(txt_preco.Text)
 			};
 
+			await App.Db.Insert(p);
+			await DisplayAlert("Sucesso!", "Registro Inserido", "OK");
 
 
 		}
 		catch(Exception ex)
 		{
-			DisplayAlert("Ops", ex.Message, "OK");
+			await DisplayAlert("Ops", ex.Message, "OK");
 		}
     }
 }
