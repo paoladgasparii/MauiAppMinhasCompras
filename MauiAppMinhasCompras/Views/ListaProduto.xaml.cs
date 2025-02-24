@@ -1,5 +1,6 @@
 using MauiAppMinhasCompras.Models;
 using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 
 namespace MauiAppMinhasCompras.Views;
 
@@ -15,13 +16,57 @@ public partial class ListaProduto : ContentPage
 
     protected async override void OnAppearing()
     {
-		List<Produto> tmp = await App.Db.GetAll();
+		try
+		{
+			List<Produto> tmp = await App.Db.GetAll();
 
-		lista.Clear();	
-		tmp.ForEach(i => lista.Add(i));
+			lista.Clear();
+			tmp.ForEach(i => lista.Add(i));
+
+		}
+		catch (Exception ex)
+		{
+			await DisplayAlert("Ops", ex.Message, "Ok");
+		}
     }
 
-    private void ToolbarItem_Clicked(object sender, EventArgs e)
+	private async void lst_produtos_Refreshing(object sender, EventArgs e)
+	{
+		try
+		{
+			lista.Clear();
+
+			List<Produto> tmp = await App.Db.GetAll();
+
+			tmp.ForEach(i => lista.Add(i));
+		}
+		catch (Exception ex)
+		{
+			await DisplayAlert("Ops", ex.Message, "Ok");
+		}
+		finally
+		{
+			lst_produtos.IsRefreshing = false;
+		}
+	}
+
+	private void lst_produtos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+	{
+		try
+		{
+			Produto p = e.SelectedItem as Produto;
+			Navigation.PushAsync(new Views.EditarProduto
+			{
+				BindingContext = p,
+			});
+		}
+		catch (Exception ex)
+		{
+			DisplayAlert("Ops", ex.Message, "Ok");
+		}
+	}
+
+    private async void ToolbarItem_Clicked(object sender, EventArgs e)
 	{
 		try
 		{
@@ -30,6 +75,10 @@ public partial class ListaProduto : ContentPage
 		catch (Exception ex)
 		{
 			DisplayAlert("Ops", ex.Message, "Ok");
+		}
+		finally
+		{
+			lst_produtos.IsRefreshing = false;
 		}
 	}
 
