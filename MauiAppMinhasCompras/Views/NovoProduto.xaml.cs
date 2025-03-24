@@ -1,5 +1,4 @@
 using MauiAppMinhasCompras.Models;
-
 namespace MauiAppMinhasCompras.Views;
 
 public partial class NovoProduto : ContentPage
@@ -21,7 +20,7 @@ public partial class NovoProduto : ContentPage
 			};
 
 			await App.Db.Insert(p);
-			await DisplayAlert("Sucesso!", "Registro Inserido", "OK");
+			await DisplayAlert("Sucesso!", "Registro Inserido", "Ok");
 
 
 		}

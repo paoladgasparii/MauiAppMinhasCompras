@@ -1,6 +1,5 @@
 using MauiAppMinhasCompras.Models;
 using System.Collections.ObjectModel;
-using System.Linq.Expressions;
 
 namespace MauiAppMinhasCompras.Views;
 
@@ -99,6 +98,28 @@ public partial class ListaProduto : ContentPage
 
 		string msg = $"O total é {soma:C}";
 
-		DisplayAlert("Total dos Produtos", msg, "OK");
+		DisplayAlert("Total dos Produtos", msg, "Ok");
     }
+
+	private async void MenuItem_Clicked(object sender, EventArgs e)
+	{
+		try
+		{
+			MenuItem selecionado = sender as MenuItem;
+
+			Produto p = selecionado.BindingContext as Produto;
+
+			bool confirm = await DisplayAlert(
+				"Tem certeza?", $"Remover {p.Descricao}?", "Sim", "Não");
+			if (confirm)
+			{
+				await App.Db.Delete(p.Id);
+				lista.Remove(p);
+			}
+		}
+		catch (Exception ex)
+		{
+			await DisplayAlert("Ops", ex.Message, "Ok");
+		}
+	}
 }
