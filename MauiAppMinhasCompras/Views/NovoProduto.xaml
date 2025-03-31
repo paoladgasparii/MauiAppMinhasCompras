@@ -4,19 +4,27 @@
              x:Class="MauiAppMinhasCompras.Views.NovoProduto"
              Title="Novo Produto">
 
+    <!-- Define os itens da barra de ferramentas da página -->
     <ContentPage.ToolbarItems>
+        <!-- Item da barra de ferramentas para salvar o novo produto -->
         <ToolbarItem Text="Salvar" Clicked="ToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
 
-
+    <!-- Layout da página, usando VerticalStackLayout para empilhar os elementos verticalmente -->
     <VerticalStackLayout Spacing="10" Padding="10">
+        <!-- Rótulo para o campo de descrição do produto -->
         <Label Text="Descrição do produto:" />
+        <!-- Campo de entrada para o nome/descreição do produto -->
         <Entry x:Name="txt_descricao" />
 
+        <!-- Rótulo para o campo de quantidade do produto -->
         <Label Text="Quantidade:" />
+        <!-- Campo de entrada para a quantidade do produto, com teclado numérico -->
         <Entry x:Name="txt_quantidade" Keyboard="Numeric" />
 
+        <!-- Rótulo para o campo de preço unitário do produto -->
         <Label Text="Preço unitário: " />
+        <!-- Campo de entrada para o preço do produto, com teclado numérico -->
         <Entry x:Name="txt_preco" Keyboard="Numeric" />
     </VerticalStackLayout>
 </ContentPage>
